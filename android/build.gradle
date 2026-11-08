@@ -3,6 +3,13 @@ allprojects {
         google()
         mavenCentral()
     }
+    ext {
+        flutter = [
+            compileSdkVersion: 34,
+            minSdkVersion: 24,
+            targetSdkVersion: 34
+        ]
+    }
 }
 
 rootProject.buildDir = "../build"
@@ -12,11 +19,25 @@ subprojects {
 
 subprojects {
     project.plugins.withId("com.android.library") {
+        if (project.android.extensions.findByName("flutter") == null) {
+            project.android.extensions.add("flutter", [
+                compileSdkVersion: 34,
+                minSdkVersion: 24,
+                targetSdkVersion: 34
+            ])
+        }
         project.android {
             compileSdkVersion 34
         }
     }
     project.plugins.withId("com.android.application") {
+        if (project.android.extensions.findByName("flutter") == null) {
+            project.android.extensions.add("flutter", [
+                compileSdkVersion: 34,
+                minSdkVersion: 24,
+                targetSdkVersion: 34
+            ])
+        }
         project.android {
             compileSdkVersion 34
         }
